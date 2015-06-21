@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>collada surface</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <style>
+      html{
+        height: 100%;
+      }
+      body {
+        margin: 0px;
+        overflow: hidden;
+        font-family: sans-serif;
+        font-size: 15px;
+        height: 100%;
+      }
+      #canvas3d {
+        height: 100%;
+      }
+      #controls_bottom{
+        position: absolute;
+        z-index: 100;
+        top: 7px;
+        left: 25px;
+        height: 155px;
+      }
+      #controls-random{
+        margin-top:10px;
+        margin-bottom: 42px;
+        display: none;
+      }
+      #controls-random label span{
+        width: 165px;
+      }
+      #controls-grid{
+        margin-top:10px;
+      }
+      input[type="range"]{
+        width: 200px;
+        display: inline;
+        vertical-align: middle;
+      }
+      input[type="radio"]{
+        line-height: 25px;
+      }
+      label span{
+        display: inline-block;
+        width: 100px;
+        line-height: 25px;
+        padding-right: 15px;
+      }
+      #loading{
+        /*font-size: 85%;*/
+        border-top: 1px dotted #333;
+        margin-top: 15px;
+        padding-top: 5px;
+      }
+/*      #controls_bottom div{
+        float: left;
+      }
+*/      </style>
+  </head>
+  <body>
+    <div id="controls_bottom">
+      <div>
+        <input type="radio" name="type" value="grid" id="grid" checked>grid
+        <input type="radio" name="type" value="random" id="random">random
+      </div>
+      <div id="controls-random">
+        <label for="number"><span>number of colladas: 100</span><input type="range" class="unselectable" data-label="number of colladas" id="number" min="1" max="750" value="100"></label>
+      </div>
+      <div id="controls-grid">
+        <label for="spread"><span>spread: 20</span><input type="range" class="unselectable" data-label="spread" id="spread" min="5" max="50" value="20"></label><br>
+        <label for="offset"><span>offset: 20</span><input type="range" class="unselectable" data-label="offset" id="offset" min="0" max="50" value="20"></label>
+      </div>
+      <div id="loading"></div>
+    </div>
+    <div id="canvas3d"></div>
+
+    <script src="lib/threejs/three.js"></script>
+    <script src="lib/threejs/OrbitControls.js"></script>
+    <script src="lib/threejs/ColladaLoader.js"></script>
+    <script src="build/build.js"></script>
+  </body>
+</html>
