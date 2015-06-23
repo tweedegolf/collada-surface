@@ -15,7 +15,15 @@ let config = {
   number: rangeColladas.value,
   spread: rangeSpread.value,
   offset: rangeOffset.value,
-  type: 'grid'
+  type: 'grid',
+  models: [{
+      url: 'models/Tulpen_short.dae'
+    },{
+      url: 'models/Tulpen_mid.dae'
+    },{
+      url: 'models/Tulpen_tall.dae'
+    }
+  ]
 };
 
 
@@ -58,7 +66,7 @@ export default function createControls(scene3d){
   };
 
   function updateScene3d(){
-    scene3d.addColladas('Tulpen', 'models/Tulpen_002.dae', config).then(function(data){
+    scene3d.createColladaSurface(config).then(function(data){
       let html = '';
       html += `number of colladas: ${data.numColladas}`;
       html += '<br>';

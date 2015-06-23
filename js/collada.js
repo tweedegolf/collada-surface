@@ -4,15 +4,14 @@ let loadedColladas = new Map();
 
 export class Collada{
 
-  constructor(name, url){
-    this.name = name;
+  constructor(url){
     this.url = url;
   }
 
   load(cb){
     let loader,
       clone,
-      data = loadedColladas.get(this.name);
+      data = loadedColladas.get(this.url);
 
     if(data !== undefined) {
       clone = this.clone(data.children);
@@ -23,7 +22,7 @@ export class Collada{
 
     loader = new THREE.ColladaLoader();
     loader.load(this.url, (collada) => {
-      loadedColladas.set(this.name,{
+      loadedColladas.set(this.url,{
         collada: collada,
         children: collada.scene.children
       });
@@ -62,8 +61,8 @@ export class Collada{
 
 }
 
-export function createCollada(name, url){
-  let collada = new Collada(name, url);
+export function createCollada(url){
+  let collada = new Collada(url);
   return new Promise(function executor(resolve, reject){
     collada.load(function(data){
       resolve(data);

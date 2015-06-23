@@ -4,20 +4,20 @@ let mRandom = Math.random;
 let mRound = Math.round;
 let mPow = Math.pow;
 
-function getRandomCoordinate(constraints){
+export function getRandomCoordinate(constraints){
   let x,y,z,min,max;
 
   min = constraints.min.x;
   max = constraints.max.x;
-  x = mRandom() * (max - min) + min;
+  x = getRandom(max - min);
 
   min = constraints.min.y;
   max = constraints.max.y;
-  y = mRandom() * (max - min) + min;
+  y = getRandom(max - min);
 
   min = constraints.min.z;
   max = constraints.max.z;
-  z = mRandom() * (max - min) + min;
+  z = getRandom(max - min);
 
   return {
     x:x,
@@ -26,7 +26,12 @@ function getRandomCoordinate(constraints){
   };
 }
 
-function getRandomCoordinatesInsideShape(constraints, shape, max){
+export function getRandom(min = 0, max = 10){
+  return mRandom() * (max - min) + min;
+}
+
+
+export function getRandomCoordinatesInsideShape(constraints, shape, max){
   let i = 0,
     check,
     coordinates = [],
@@ -49,7 +54,7 @@ function getRandomCoordinatesInsideShape(constraints, shape, max){
 }
 
 
-function getRandomCoordinatesInsideShapeGrid(constraints, shape, spread = 30, offset = 0, margin = 0, optimise = false){
+export function getRandomCoordinatesInsideShapeGrid(constraints, shape, spread = 30, offset = 0, margin = 0, optimise = false){
 
   spread = parseInt(spread, 10);
   offset = parseInt(offset, 10);
@@ -117,7 +122,7 @@ function getRandomCoordinatesInsideShapeGrid(constraints, shape, spread = 30, of
 }
 
 
-function round(value, decimals = 0){
+export function round(value, decimals = 0){
   if(decimals <= 0){
     return mRound(value);
   }
@@ -125,11 +130,3 @@ function round(value, decimals = 0){
   //console.log(p, decimals)
   return mRound(value * p)/p;
 }
-
-
-export default{
-  round: round,
-  getRandomCoordinate: getRandomCoordinate,
-  getRandomCoordinatesInsideShape: getRandomCoordinatesInsideShape,
-  getRandomCoordinatesInsideShapeGrid: getRandomCoordinatesInsideShapeGrid
-};
