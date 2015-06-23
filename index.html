@@ -18,7 +18,7 @@
       #canvas3d {
         height: 100%;
       }
-      #controls_bottom{
+      #controls{
         position: absolute;
         z-index: 100;
         top: 7px;
@@ -35,6 +35,20 @@
       }
       #controls-grid{
         margin-top:10px;
+      }
+      #controls-model{
+        /*height: 200px;*/
+        /*width: 200px;*/
+      }
+      #left{
+        float: left;
+        /*margin-right: 50px;*/
+        height: 155px;
+        width: 410px;
+      }
+      #right{
+        /*float: right;*/
+        /*height: 155px;*/
       }
       input[type="range"]{
         width: 200px;
@@ -62,17 +76,26 @@
 */      </style>
   </head>
   <body>
-    <div id="controls_bottom">
-      <div>
-        <input type="radio" name="type" value="grid" id="grid" checked>grid
-        <input type="radio" name="type" value="random" id="random">random
+    <div id="controls">
+      <div id="left">
+        <div>
+          <input type="radio" name="type" value="grid" id="grid" checked>grid
+          <input type="radio" name="type" value="random" id="random">random
+        </div>
+        <div id="controls-random">
+          <label for="number"><span>number of colladas: 100</span><input type="range" class="unselectable" data-label="number of colladas" id="number" min="1" max="750" value="100"></label>
+        </div>
+        <div id="controls-grid">
+          <label for="spread"><span>spread: 20</span><input type="range" class="unselectable" data-label="spread" id="spread" min="5" max="50" value="20"></label><br>
+          <label for="offset"><span>offset: 20</span><input type="range" class="unselectable" data-label="offset" id="offset" min="0" max="50" value="20"></label>
+        </div>
       </div>
-      <div id="controls-random">
-        <label for="number"><span>number of colladas: 100</span><input type="range" class="unselectable" data-label="number of colladas" id="number" min="1" max="750" value="100"></label>
-      </div>
-      <div id="controls-grid">
-        <label for="spread"><span>spread: 20</span><input type="range" class="unselectable" data-label="spread" id="spread" min="5" max="50" value="20"></label><br>
-        <label for="offset"><span>offset: 20</span><input type="range" class="unselectable" data-label="offset" id="offset" min="0" max="50" value="20"></label>
+      <div id="right">
+        <div id="controls-model">
+          <label for="short"><span>short: 33%</span><input type="range" class="unselectable" data-label="short" id="tullip-short" min="0" max="100" value="33"></label><br>
+          <label for="mid"><span>mid: 33%</span><input type="range" class="unselectable" data-label="mid" id="tullip-mid" min="0" max="100" value="33"></label>
+          <label for="tall"><span>tall: 34%</span><input type="range" class="unselectable" data-label="tall" id="tullip-tall" min="0" max="100" value="33"></label>
+        </div>
       </div>
       <div id="loading"></div>
     </div>

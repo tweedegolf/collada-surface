@@ -9,15 +9,15 @@ export function getRandomCoordinate(constraints){
 
   min = constraints.min.x;
   max = constraints.max.x;
-  x = getRandom(max - min);
+  x = getRandom(min, max);
 
   min = constraints.min.y;
   max = constraints.max.y;
-  y = getRandom(max - min);
+  y = getRandom(min, max);
 
   min = constraints.min.z;
   max = constraints.max.z;
-  z = getRandom(max - min);
+  z = getRandom(min, max);
 
   return {
     x:x,

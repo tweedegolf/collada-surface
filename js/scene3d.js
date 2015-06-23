@@ -14,6 +14,7 @@ let renderer, controls;
 let world;
 let timestamp;
 let mRound = Math.round;
+let mFloor = Math.floor;
 
 
 
@@ -139,6 +140,7 @@ function createColladaSurface(config){
 
 
   function executor(resolve, reject){
+    clear();
     console.time('loading');
     timestamp = window.performance.now();
 
@@ -146,23 +148,34 @@ function createColladaSurface(config){
     let ratios = [];
     let numElements = config.models.length;
 
-    config.models.forEach(function(cfg){
+    config.models.forEach(function(cfg, i){
       models.push(cfg.url);
       if(cfg.ratio){
-        ratios.push(cfg.ratio);
+        ratios.push(parseInt(cfg.ratio, 10));
       }
+    });
+
+    let total = 0;
+    ratios.forEach(function(ratio){
+      total += ratio;
+    });
+
+    ratios.forEach(function(ratio, i){
+      ratios[i] = ratio/total;
     });
 
     // if no ratios are given, just spread evenly
     if(ratios.length === 0){
       let i = 0;
-      let r = mRound((100/numElements)/100);
+      let r = 1/numElements;
+      let total = 0;
       while(i < numElements){
         ratios.push(r);
         i++;
       }
     }
-    console.log(ratios);
+
+    //console.log(ratios);
 
     let canvas = document.createElement('canvas');
     let context = canvas.getContext('2d');
@@ -181,20 +194,48 @@ function createColladaSurface(config){
     if(config.type === 'grid'){
       coordinates = getRandomCoordinatesInsideShapeGrid(bb, context, config.spread, config.offset, config.margin);
     }else{
+      console.log(config.number);
       coordinates = getRandomCoordinatesInsideShape(bb, context, config.number);
     }
 
     let numModels = coordinates.length;
     let colladas = [];
+    let i;
     let j = 0;
-    for(let i = 0; i < numModels; i++){
-      colladas.push(models[j]);
-      if(i === ratios[j]){
-        j++;
-      }
+    let amounts = [];
+    let amount;
+
+    total = 0;
+    for(i = 0; i < numElements; i++){
+      amount = mRound(ratios[i] * numModels);
+      amounts.push(amount);
+      total += amount;
     }
 
-    console.log(colladas);
+
+    console.log(numModels, amounts);
+
+    let diff = i = numModels - total;
+    while(diff > 0){
+      colladas.push(models[0]);
+      console.log('fill');
+      diff--;
+    }
+
+    amount = amounts[j];
+    i = i > 0 ? i : 0;
+    for(; i < numModels; i++){
+      if(i === amount){
+        amount += amounts[++j];
+        if(j === numElements){
+          break;
+        }
+        //console.log('increase j', j, amount);
+      }
+      colladas.push(models[j]);
+    }
+
+    //console.log(colladas.length, colladas);
     //console.log(coordinates);
 
     function loop(i){
@@ -226,9 +267,9 @@ function createColladaSurface(config){
 
 
 function getRandomCollada(colladas){
-  let r = mRound(getRandom(0, colladas.length));
+  let r = mFloor(getRandom(0, colladas.length));
   let c = colladas[r];
-  colladas = colladas.slice(r);
+  colladas = colladas.slice(r, 1);
   //console.log(c, colladas.length, r)
   return c;
 }
