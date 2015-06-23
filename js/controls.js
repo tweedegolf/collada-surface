@@ -2,6 +2,7 @@
 
 import {round} from './util.js';
 
+let mFloor = Math.floor;
 let rangeColladas = document.getElementById('number');
 let rangeSpread = document.getElementById('spread');
 let rangeOffset = document.getElementById('offset');
@@ -73,9 +74,9 @@ export default function createControls(scene3d){
     }else{
       let total = parseInt(rangeShort.value, 10) + parseInt(rangeMid.value, 10) + parseInt(rangeTall.value, 10);
       //this.previousSibling.innerText = `${this.getAttribute('data-label')}: ${round(this.valueAsNumber/total, 2)}`;
-      rangeShort.previousSibling.innerText = `${rangeShort.getAttribute('data-label')}: ${round(rangeShort.valueAsNumber * 100/total, 2)}%`;
-      rangeMid.previousSibling.innerText = `${rangeMid.getAttribute('data-label')}: ${round(rangeMid.valueAsNumber * 100/total, 2)}%`;
-      rangeTall.previousSibling.innerText = `${rangeTall.getAttribute('data-label')}: ${round(rangeTall.valueAsNumber * 100/total, 2)}%`;
+      rangeShort.previousSibling.innerText = `${rangeShort.getAttribute('data-label')}:\u00A0${round(rangeShort.valueAsNumber * 100/total)}%`;
+      rangeMid.previousSibling.innerText = `${rangeMid.getAttribute('data-label')}:\u00A0${round(rangeMid.valueAsNumber * 100/total)}%`;
+      rangeTall.previousSibling.innerText = `${rangeTall.getAttribute('data-label')}:\u00A0${round(rangeTall.valueAsNumber * 100/total)}%`;
     }
     config = {
       number: rangeColladas.value,
