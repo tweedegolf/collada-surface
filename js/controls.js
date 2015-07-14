@@ -3,12 +3,13 @@
 import {round} from './util.js';
 
 let mFloor = Math.floor;
+let selectFlower = document.getElementById('flower');
 let rangeColladas = document.getElementById('number');
 let rangeSpread = document.getElementById('spread');
 let rangeOffset = document.getElementById('offset');
-let rangeShort = document.getElementById('tullip-short');
-let rangeMid = document.getElementById('tullip-mid');
-let rangeTall = document.getElementById('tullip-tall');
+let rangeShort = document.getElementById('short');
+let rangeMid = document.getElementById('mid');
+let rangeTall = document.getElementById('tall');
 let radioGrid = document.getElementById('grid');
 let radioRandom = document.getElementById('random');
 let divGrid = document.getElementById('controls-grid');
@@ -16,6 +17,7 @@ let divRandom = document.getElementById('controls-random');
 let divLoading = document.getElementById('loading');
 let updateSliderValue;
 let type = 'grid';
+let flower = 'Anemoon';
 let config = {
   number: rangeColladas.value,
   spread: rangeSpread.value,
@@ -51,6 +53,10 @@ export default function createControls(scene3d){
     });
   });
 
+  selectFlower.addEventListener('click', function(e){
+    flower = this.options[this.selectedIndex].value;
+    updateScene3d();
+  }, false);
 
   radioGrid.addEventListener('click', function(){
     divGrid.style.display = 'block';
@@ -84,13 +90,13 @@ export default function createControls(scene3d){
       offset: rangeOffset.value,
       type: type,
       models: [{
-          url: 'models/Tulpen_short.dae',
+          url: `models/${flower}_short.dae`,
           ratio: rangeShort.value
         },{
-          url: 'models/Tulpen_mid.dae',
+          url: `models/${flower}_mid.dae`,
           ratio: rangeShort.value
         },{
-          url: 'models/Tulpen_tall.dae',
+          url: `models/${flower}_tall.dae`,
           ratio: rangeTall.value
         }
       ]
@@ -100,13 +106,13 @@ export default function createControls(scene3d){
   function updateScene3d(){
 
     config.models = [{
-        url: 'models/Tulpen_short.dae',
+        url: `models/${flower}_short.dae`,
         ratio: rangeShort.value
       },{
-        url: 'models/Tulpen_mid.dae',
+        url: `models/${flower}_mid.dae`,
         ratio: rangeMid.value
       },{
-        url: 'models/Tulpen_tall.dae',
+        url: `models/${flower}_tall.dae`,
         ratio: rangeTall.value
       }
     ]

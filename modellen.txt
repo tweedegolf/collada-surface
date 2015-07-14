@@ -1,0 +1,48 @@
+Path:
+
+Rode haagbeuk
+
+SurfaceCollada:
+
+Lavandel
+Ereprijs
+Violen
+Geranium
+Tulpen
+Anemoon
+
+Collada:
+
+Eik
+Lijsterbes
+Berk
+Viburnum
+Acer palmatum
+Hortensia
+Spierstruik
+Prunus
+Fagus
+Salix
+Rhododendron
+Vlinderstruik
+Skimmia
+Bamboe
+Siergras
+Riet
+
+
+Gardena Waterpunt
+Stroompunt
+Speelhus met glijbaan
+Lineablock
+Trap
+Waterbron
+Waterkraan
+Waterfontein
+Regenton
+Verdeelbox
+Schuttingdeur
+
+
+
+

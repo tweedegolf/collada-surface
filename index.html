@@ -71,6 +71,9 @@
         margin-top: 15px;
         padding-top: 5px;
       }
+      #flower{
+        margin-bottom: 20px;
+      }
 /*      #controls_bottom div{
         float: left;
       }
@@ -79,6 +82,16 @@
   <body>
     <div id="controls">
       <div id="left">
+        <div>
+          <select id="flower">
+            <option>Anemoon</option>
+            <option>Ereprijs</option>
+            <option>Geranium</option>
+            <option>Lavendel</option>
+            <option>Tulpen</option>
+            <option>Violen</option>
+          </select>
+        </div>
         <div>
           <input type="radio" name="type" value="grid" id="grid" checked>grid
           <input type="radio" name="type" value="random" id="random">random
@@ -93,9 +106,9 @@
       </div>
       <div id="right">
         <div id="controls-model">
-          <label for="short"><span>short&nbsp;tullips:&nbsp;33%</span><input type="range" class="unselectable" data-label="short&nbsp;tullips" id="tullip-short" min="0" max="100" value="33"></label><br>
-          <label for="mid"><span>mid&nbsp;tullips:&nbsp;33%</span><input type="range" class="unselectable" data-label="mid&nbsp;tullips" id="tullip-mid" min="0" max="100" value="33"></label>
-          <label for="tall"><span>tall&nbsp;tullips:&nbsp;34%</span><input type="range" class="unselectable" data-label="tall&nbsp;tullips" id="tullip-tall" min="0" max="100" value="33"></label>
+          <label for="short"><span>short:&nbsp;33%</span><input type="range" class="unselectable" data-label="short" id="short" min="0" max="100" value="33"></label><br>
+          <label for="mid"><span>mid:&nbsp;33%</span><input type="range" class="unselectable" data-label="mid" id="mid" min="0" max="100" value="33"></label>
+          <label for="tall"><span>tall:&nbsp;34%</span><input type="range" class="unselectable" data-label="tall" id="tall" min="0" max="100" value="33"></label>
         </div>
       </div>
       <div id="loading"></div>
