@@ -24,6 +24,7 @@
         top: 7px;
         left: 25px;
         height: 155px;
+        width: 100%;
       }
       #controls-random{
         margin-top:10px;
@@ -43,13 +44,13 @@
       #left{
         float: left;
         /*margin-right: 50px;*/
-        height: 155px;
         width: 410px;
       }
       #right{
         /*width: 410px;*/
         /*float: right;*/
         /*height: 155px;*/
+        clear: right;
       }
       input[type="range"]{
         width: 200px;
@@ -68,8 +69,8 @@
       #loading{
         /*font-size: 85%;*/
         border-top: 1px dotted #333;
-        margin-top: 15px;
-        padding-top: 5px;
+        margin-top: 25px;
+        padding-top: 8px;
       }
       #flower{
         margin-bottom: 20px;
@@ -106,8 +107,9 @@
       </div>
       <div id="right">
         <div id="controls-model">
+          <label for="scale"><span>scale:&nbsp;100%</span><input type="range" class="unselectable" data-label="scale" id="scale" min="50" max="300" value="100"></label><br>
           <label for="short"><span>short:&nbsp;33%</span><input type="range" class="unselectable" data-label="short" id="short" min="0" max="100" value="33"></label><br>
-          <label for="mid"><span>mid:&nbsp;33%</span><input type="range" class="unselectable" data-label="mid" id="mid" min="0" max="100" value="33"></label>
+          <label for="mid"><span>mid:&nbsp;33%</span><input type="range" class="unselectable" data-label="mid" id="mid" min="0" max="100" value="33"></label><br>
           <label for="tall"><span>tall:&nbsp;34%</span><input type="range" class="unselectable" data-label="tall" id="tall" min="0" max="100" value="33"></label>
         </div>
       </div>

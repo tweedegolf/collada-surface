@@ -7,6 +7,7 @@ let selectFlower = document.getElementById('flower');
 let rangeColladas = document.getElementById('number');
 let rangeSpread = document.getElementById('spread');
 let rangeOffset = document.getElementById('offset');
+let rangeScale = document.getElementById('scale');
 let rangeShort = document.getElementById('short');
 let rangeMid = document.getElementById('mid');
 let rangeTall = document.getElementById('tall');
@@ -23,14 +24,15 @@ let config = {
   spread: rangeSpread.value,
   offset: rangeOffset.value,
   type: type,
+  scale: 100,
   models: [{
-      url: 'models/Tulpen_short.dae',
+      url: `models/${flower}_short.dae`,
       ratio: rangeShort.value
     },{
-      url: 'models/Tulpen_mid.dae',
+      url: `models/${flower}_mid.dae`,
       ratio: rangeMid.value
     },{
-      url: 'models/Tulpen_tall.dae',
+      url: `models/${flower}_tall.dae`,
       ratio: rangeTall.value
     }
   ]
@@ -55,6 +57,9 @@ export default function createControls(scene3d){
 
   selectFlower.addEventListener('click', function(e){
     flower = this.options[this.selectedIndex].value;
+    config.scale = 100;
+    rangeScale.value = 100;
+    rangeScale.previousSibling.innerText = 'scale: 100%';
     updateScene3d();
   }, false);
 
@@ -75,8 +80,10 @@ export default function createControls(scene3d){
 
 
   updateSliderValue = function(){
-    if(this.id.indexOf('tullip') === -1){
+    if(this.id === 'spread' || this.id === 'offset'){
       this.previousSibling.innerText = `${this.getAttribute('data-label')}: ${this.value}`;
+    }else if(this.id === 'scale'){
+      this.previousSibling.innerText = `${this.getAttribute('data-label')}:\u00A0${this.valueAsNumber}%`;
     }else{
       let total = parseInt(rangeShort.value, 10) + parseInt(rangeMid.value, 10) + parseInt(rangeTall.value, 10);
       //this.previousSibling.innerText = `${this.getAttribute('data-label')}: ${round(this.valueAsNumber/total, 2)}`;
@@ -89,6 +96,7 @@ export default function createControls(scene3d){
       spread: rangeSpread.value,
       offset: rangeOffset.value,
       type: type,
+      scale: rangeScale.valueAsNumber,
       models: [{
           url: `models/${flower}_short.dae`,
           ratio: rangeShort.value

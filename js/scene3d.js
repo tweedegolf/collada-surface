@@ -213,12 +213,12 @@ function createColladaSurface(config){
     }
 
 
-    console.log(numModels, amounts);
+    //console.log(numModels, amounts);
 
     let diff = i = numModels - total;
     while(diff > 0){
       colladas.push(models[0]);
-      console.log('fill');
+      //console.log('fill');
       diff--;
     }
 
@@ -238,6 +238,7 @@ function createColladaSurface(config){
     //console.log(colladas.length, colladas);
     //console.log(coordinates);
 
+    let scale = config.scale/100;
     function loop(i){
       if(i < numModels){
         createCollada(getRandomCollada(colladas)).then(function(collada){
@@ -245,7 +246,7 @@ function createColladaSurface(config){
           collada.position.y = coordinates[i].y;
           collada.position.z = 0;
           collada.rotation.z = getRandom(0, 360);
-          collada.scale.set(1, 1, 1);
+          collada.scale.set(scale, scale, scale);
           world.add(collada);
           loop(++i);
         });
