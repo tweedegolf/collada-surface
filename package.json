@@ -1,5 +1,5 @@
 {
-  "name": "vr-test1",
+  "name": "collada-surface",
   "private": true,
   "devDependencies": {
     "babelify": ">=4.0.0",
@@ -12,8 +12,8 @@
     "node": "0.10.x"
   },
   "scripts": {
-    "start": "qs -b index.html",
-    "build": "browserify js/main.js -t [ babelify --sourceMapRelative ./js ] --debug | exorcist build/build.js.map > build/build.js ",
-    "watch": "watchify js/* -t babelify -o build/build.js --debug --verbose"
+    "start": "ws",
+    "build": "browserify js/main.js -t [ babelify --sourceMapRelative ./js ] --debug | exorcist build/build.js.map > build/build.js",
+    "watch": "watchify js/* -t babelify -o build/build.js --debug --verbose & ws"
   }
 }
