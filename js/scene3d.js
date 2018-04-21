@@ -1,81 +1,75 @@
-  /*
+/*
   Creates a 3D scene and sets the right renderer and controls dependent on the device.
 */
 
-'use strict';
+import THREE from 'three';
+import '../lib/OrbitControls';
+import { createCollada } from './collada';
+import { getRandom, getRandomCoordinatesInsideShapeGrid, getRandomCoordinatesInsideShape } from './util';
 
-import {createCollada} from './collada';
-import {getRandom, getRandomCoordinatesInsideShapeGrid, getRandomCoordinatesInsideShape} from './util';
 
-
-let divContainer, body;
-let camera, scene, element;
-let renderer, controls;
-let world;
 let timestamp;
-let mRound = Math.round;
-let mFloor = Math.floor;
+const mRound = Math.round;
+const mFloor = Math.floor;
 
 
+const divContainer = document.getElementById('canvas3d');
 
-function init() {
-  body = document.body;
-  divContainer = document.getElementById('canvas3d');
+const renderer = new THREE.WebGLRenderer({ autoClear: true });
+renderer.setClearColor(0xffffff, 1);
+const element = renderer.domElement;
+divContainer.appendChild(element);
 
-  renderer = new THREE.WebGLRenderer({autoClear:true});
-  renderer.setClearColor(0xffffff, 1);
-  element = renderer.domElement;
-  divContainer.appendChild(element);
+const scene = new THREE.Scene();
 
-  scene = new THREE.Scene();
+// correct aspect of camera is set in resize method, see below
+const camera = new THREE.PerspectiveCamera(50, 1, 1, 3000);
+camera.position.z = 500;
+camera.position.x = 0;
+camera.position.y = 200;
+camera.lookAt(new THREE.Vector3(0, 0, 0));
 
-  camera = new THREE.PerspectiveCamera(50, 1, 1, 3000); // correct aspect of camera is set in resize method, see below
-  camera.position.z = 500;
-  camera.position.x = 0;
-  camera.position.y = 200;
-  camera.lookAt(new THREE.Vector3(0,0,0));
+const world = new THREE.Mesh(
+  new THREE.PlaneGeometry(200, 200, 20, 20),
+  new THREE.MeshBasicMaterial({ wireframe: true, color: 0x000000 })
+);
+world.rotation.x -= Math.PI / 2;
+world.position.z = 50;
+scene.add(world);
 
-  world = new THREE.Mesh(new THREE.PlaneGeometry(200, 200, 20, 20), new THREE.MeshBasicMaterial({wireframe:true, color: 0x000000}));
-  world.rotation.x -= Math.PI/2;
-  world.position.z = 50;
-  scene.add(world);
+const light = new THREE.HemisphereLight(0x777777, 0x000000, 0.6);
+scene.add(light);
 
-  let light = new THREE.HemisphereLight(0x777777, 0x000000, 0.6);
-  scene.add(light);
+const render = () => {
+  renderer.render(scene, camera);
+};
 
-  window.addEventListener('resize', resize, false);
-
-  controls = new THREE.OrbitControls(camera, divContainer);
-  controls.keys = {};
-  controls.addEventListener('change', function(){
-    render();
-  });
-  resize();
-}
-
-
-function resize() {
-  let width = divContainer.offsetWidth;
-  let height = divContainer.offsetHeight;
+const resize = () => {
+  const width = divContainer.offsetWidth;
+  const height = divContainer.offsetHeight;
   camera.aspect = width / height;
   camera.updateProjectionMatrix();
   renderer.setSize(width, height);
   render();
-}
+};
 
-
-function render(){
-  renderer.render(scene, camera);
-}
-
-
-function clear(){
-  while(world.children.length > 0){
+function clear() {
+  while (world.children.length > 0) {
     world.remove(world.children[0]);
   }
   render();
 }
 
+
+window.addEventListener('resize', resize, false);
+
+const controls = new THREE.OrbitControls(camera, divContainer);
+controls.keys = {};
+controls.addEventListener('change', () => {
+  render();
+});
+
+resize();
 /*
 function addColladas(name, url, config){
 
@@ -136,49 +130,47 @@ function addColladas(name, url, config){
 */
 
 
-function createColladaSurface(config){
-
-
-  function executor(resolve, reject){
+function createColladaSurface(config) {
+  function executor(resolve, reject) {
     clear();
     console.time('loading');
     timestamp = window.performance.now();
 
-    let models = [];
-    let ratios = [];
-    let numElements = config.models.length;
+    const models = [];
+    const ratios = [];
+    const numElements = config.models.length;
 
-    config.models.forEach(function(cfg, i){
+    config.models.forEach((cfg, i) => {
       models.push(cfg.url);
-      if(cfg.ratio){
+      if (cfg.ratio) {
         ratios.push(parseInt(cfg.ratio, 10));
       }
     });
 
     let total = 0;
-    ratios.forEach(function(ratio){
+    ratios.forEach((ratio) => {
       total += ratio;
     });
 
-    ratios.forEach(function(ratio, i){
-      ratios[i] = ratio/total;
+    ratios.forEach((ratio, i) => {
+      ratios[i] = ratio / total;
     });
 
     // if no ratios are given, just spread evenly
-    if(ratios.length === 0){
+    if (ratios.length === 0) {
       let i = 0;
-      let r = 1/numElements;
-      let total = 0;
-      while(i < numElements){
+      const r = 1 / numElements;
+      const total = 0;
+      while (i < numElements) {
         ratios.push(r);
         i++;
       }
     }
 
-    //console.log(ratios);
+    // console.log(ratios);
 
-    let canvas = document.createElement('canvas');
-    let context = canvas.getContext('2d');
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
     let coordinates;
 
     context.beginPath();
@@ -189,59 +181,59 @@ function createColladaSurface(config){
     context.stroke();
 
     world.geometry.computeBoundingBox();
-    let bb = world.geometry.boundingBox;
+    const bb = world.geometry.boundingBox;
 
-    if(config.type === 'grid'){
+    if (config.type === 'grid') {
       coordinates = getRandomCoordinatesInsideShapeGrid(bb, context, config.spread, config.offset, config.margin);
-    }else{
+    } else {
       console.log(config.number);
       coordinates = getRandomCoordinatesInsideShape(bb, context, config.number);
     }
 
-    let numModels = coordinates.length;
-    let colladas = [];
+    const numModels = coordinates.length;
+    const colladas = [];
     let i;
     let j = 0;
-    let amounts = [];
+    const amounts = [];
     let amount;
 
     total = 0;
-    for(i = 0; i < numElements; i++){
+    for (i = 0; i < numElements; i++) {
       amount = mRound(ratios[i] * numModels);
       amounts.push(amount);
       total += amount;
     }
 
 
-    //console.log(numModels, amounts);
+    // console.log(numModels, amounts);
 
     let diff = i = numModels - total;
-    while(diff > 0){
+    while (diff > 0) {
       colladas.push(models[0]);
-      //console.log('fill');
+      // console.log('fill');
       diff--;
     }
 
     amount = amounts[j];
     i = i > 0 ? i : 0;
-    for(; i < numModels; i++){
-      if(i === amount){
+    for (; i < numModels; i++) {
+      if (i === amount) {
         amount += amounts[++j];
-        if(j === numElements){
+        if (j === numElements) {
           break;
         }
-        //console.log('increase j', j, amount);
+        // console.log('increase j', j, amount);
       }
       colladas.push(models[j]);
     }
 
-    //console.log(colladas.length, colladas);
-    //console.log(coordinates);
+    // console.log(colladas.length, colladas);
+    // console.log(coordinates);
 
-    let scale = config.scale/100;
-    function loop(i){
-      if(i < numModels){
-        createCollada(getRandomCollada(colladas)).then(function(collada){
+    const scale = config.scale / 100;
+    function loop(i) {
+      if (i < numModels) {
+        createCollada(getRandomCollada(colladas)).then((collada) => {
           collada.position.x = coordinates[i].x;
           collada.position.y = coordinates[i].y;
           collada.position.z = 0;
@@ -250,13 +242,13 @@ function createColladaSurface(config){
           world.add(collada);
           loop(++i);
         });
-      }else{
+      } else {
         // ready
         render();
         console.timeEnd('loading');
         resolve({
           took: window.performance.now() - timestamp,
-          numColladas: numModels
+          numColladas: numModels,
         });
       }
     }
@@ -267,19 +259,18 @@ function createColladaSurface(config){
 }
 
 
-function getRandomCollada(colladas){
-  let r = mFloor(getRandom(0, colladas.length));
-  let c = colladas[r];
+function getRandomCollada(colladas) {
+  const r = mFloor(getRandom(0, colladas.length));
+  const c = colladas[r];
   colladas = colladas.slice(r, 1);
-  //console.log(c, colladas.length, r)
+  // console.log(c, colladas.length, r)
   return c;
 }
 
 
-
 export default {
-  init:init,
-  clear: clear,
-  //addColladas: addColladas,
-  createColladaSurface: createColladaSurface
+  init,
+  clear,
+  // addColladas: addColladas,
+  createColladaSurface,
 };

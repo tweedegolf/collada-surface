@@ -1,60 +1,64 @@
-'use strict';
-
-import {createCollada} from './collada';
-import {getRandom, getRandomCoordinatesInsideShapeGrid, getRandomCoordinatesInsideShape} from './util';
+import { createCollada } from './collada';
+import { getRandom, getRandomCoordinatesInsideShapeGrid, getRandomCoordinatesInsideShape } from './util';
 
 let timestamp;
 
-export default function createColladaSurface(config){
+const getRandomCollada = (colladas) => {
+  const r = getRandom(0, colladas.length);
+  const c = colladas[r];
+  colladas = colladas.slice(r);
+  return c;
+};
 
-  let mRound = Math.round;
 
-  function executor(resolve, reject){
+export default function createColladaSurface(config) {
+  const mRound = Math.round;
+
+  function executor(resolve) {
     console.time('loading');
     timestamp = window.performance.now();
 
-    let models = [];
-    let ratios = [];
-    let numElements = config.models.length;
+    const models = [];
+    const ratios = [];
+    const numElements = config.models.length;
     let coordinates;
-    let result = [];
 
-    config.models.forEach(function(cfg){
+    config.models.forEach((cfg) => {
       models.push(cfg.url);
       ratios.push(cfg.ratio);
     });
 
     // if no ratios are given, just spread evenly
-    if(ratios.length === 0){
+    if (ratios.length === 0) {
       let i = 0;
-      let r = mRound(100/numElements);
-      while(i < numElements){
+      const r = mRound(100 / numElements);
+      while (i < numElements) {
         ratios.push(r);
-        i++;
+        i += 1;
       }
     }
 
-    if(config.type === 'grid'){
+    if (config.type === 'grid') {
       coordinates = getRandomCoordinatesInsideShapeGrid(config.bb, config.context, config.spread, config.offset, config.margin);
-    }else{
+    } else {
       coordinates = getRandomCoordinatesInsideShape(config.bb, config.context, config.number);
     }
 
-    let numModels = coordinates.length;
-    let colladas = [];
+    const numModels = coordinates.length;
+    const colladas = [];
     let j = 0;
-    for(let i = 0; i < numElements; i++){
+    for (let i = 0; i < numElements; i += 1) {
       colladas.push(models[j]);
-      if(i === ratios[j]){
-        j++;
+      if (i === ratios[j]) {
+        j += 1;
       }
     }
 
-    //console.log(coordinates);
+    // console.log(coordinates);
 
-    function loop(i){
-      if(i < numModels){
-        createCollada(getRandomCollada(colladas)).then(function(collada){
+    function loop(i) {
+      if (i < numModels) {
+        createCollada(getRandomCollada(colladas)).then((collada) => {
           collada.position.x = coordinates[i].x;
           collada.position.y = coordinates[i].y;
           collada.position.z = 0;
@@ -63,12 +67,12 @@ export default function createColladaSurface(config){
           world.add(collada);
           loop(++i);
         });
-      }else{
+      } else {
         // ready
         console.timeEnd('loading');
         resolve({
           took: window.performance.now() - timestamp,
-          numColladas: numModels
+          numColladas: numModels,
         });
       }
     }
@@ -76,12 +80,4 @@ export default function createColladaSurface(config){
   }
 
   return new Promise(executor);
-}
-
-
-function getRandomCollada(colladas){
-  let r = getRandom(0, colladas.length);
-  let c = colladas[r];
-  colladas = colladas.slice(r);
-  return c;
 }

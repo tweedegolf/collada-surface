@@ -1,21 +1,19 @@
-'use strict';
+import { round } from './util';
 
-import {round} from './util.js';
-
-let mFloor = Math.floor;
-let selectFlower = document.getElementById('flower');
-let rangeColladas = document.getElementById('number');
-let rangeSpread = document.getElementById('spread');
-let rangeOffset = document.getElementById('offset');
-let rangeScale = document.getElementById('scale');
-let rangeShort = document.getElementById('short');
-let rangeMid = document.getElementById('mid');
-let rangeTall = document.getElementById('tall');
-let radioGrid = document.getElementById('grid');
-let radioRandom = document.getElementById('random');
-let divGrid = document.getElementById('controls-grid');
-let divRandom = document.getElementById('controls-random');
-let divLoading = document.getElementById('loading');
+const mFloor = Math.floor;
+const selectFlower = document.getElementById('flower');
+const rangeColladas = document.getElementById('number');
+const rangeSpread = document.getElementById('spread');
+const rangeOffset = document.getElementById('offset');
+const rangeScale = document.getElementById('scale');
+const rangeShort = document.getElementById('short');
+const rangeMid = document.getElementById('mid');
+const rangeTall = document.getElementById('tall');
+const radioGrid = document.getElementById('grid');
+const radioRandom = document.getElementById('random');
+const divGrid = document.getElementById('controls-grid');
+const divRandom = document.getElementById('controls-random');
+const divLoading = document.getElementById('loading');
 let updateSliderValue;
 let type = 'grid';
 let flower = 'Anemoon';
@@ -23,39 +21,38 @@ let config = {
   number: rangeColladas.value,
   spread: rangeSpread.value,
   offset: rangeOffset.value,
-  type: type,
+  type,
   scale: 100,
   models: [{
-      url: `models/${flower}_short.dae`,
-      ratio: rangeShort.value
-    },{
-      url: `models/${flower}_mid.dae`,
-      ratio: rangeMid.value
-    },{
-      url: `models/${flower}_tall.dae`,
-      ratio: rangeTall.value
-    }
-  ]
+    url: `models/${flower}_short.dae`,
+    ratio: rangeShort.value,
+  }, {
+    url: `models/${flower}_mid.dae`,
+    ratio: rangeMid.value,
+  }, {
+    url: `models/${flower}_tall.dae`,
+    ratio: rangeTall.value,
+  },
+  ],
 };
 
 
-export default function createControls(scene3d){
+export default function createControls(scene3d) {
+  const ranges = document.querySelectorAll('input[type="range"');
 
-  let ranges = document.querySelectorAll('input[type="range"');
-
-  Array.from(ranges).forEach(function(range){
-    range.addEventListener('mousedown', function(){
+  Array.from(ranges).forEach((range) => {
+    range.addEventListener('mousedown', function () {
       this.addEventListener('mousemove', updateSliderValue);
     });
-    range.addEventListener('mouseup', function(){
+    range.addEventListener('mouseup', function () {
       this.removeEventListener('mousemove', updateSliderValue);
     });
-    range.addEventListener('change', function(){
+    range.addEventListener('change', () => {
       updateScene3d();
     });
   });
 
-  selectFlower.addEventListener('click', function(e){
+  selectFlower.addEventListener('click', function (e) {
     flower = this.options[this.selectedIndex].value;
     config.scale = 100;
     rangeScale.value = 100;
@@ -63,14 +60,14 @@ export default function createControls(scene3d){
     updateScene3d();
   }, false);
 
-  radioGrid.addEventListener('click', function(){
+  radioGrid.addEventListener('click', () => {
     divGrid.style.display = 'block';
     divRandom.style.display = 'none';
     type = 'grid';
     updateScene3d();
   }, false);
 
-  radioRandom.addEventListener('click', function(){
+  radioRandom.addEventListener('click', () => {
     divGrid.style.display = 'none';
     divRandom.style.display = 'block';
     type = 'random';
@@ -78,55 +75,53 @@ export default function createControls(scene3d){
   }, false);
 
 
-
-  updateSliderValue = function(){
-    if(this.id === 'spread' || this.id === 'offset'){
+  updateSliderValue = function () {
+    if (this.id === 'spread' || this.id === 'offset') {
       this.previousSibling.innerText = `${this.getAttribute('data-label')}: ${this.value}`;
-    }else if(this.id === 'scale'){
+    } else if (this.id === 'scale') {
       this.previousSibling.innerText = `${this.getAttribute('data-label')}:\u00A0${this.valueAsNumber}%`;
-    }else{
-      let total = parseInt(rangeShort.value, 10) + parseInt(rangeMid.value, 10) + parseInt(rangeTall.value, 10);
-      //this.previousSibling.innerText = `${this.getAttribute('data-label')}: ${round(this.valueAsNumber/total, 2)}`;
-      rangeShort.previousSibling.innerText = `${rangeShort.getAttribute('data-label')}:\u00A0${round(rangeShort.valueAsNumber * 100/total)}%`;
-      rangeMid.previousSibling.innerText = `${rangeMid.getAttribute('data-label')}:\u00A0${round(rangeMid.valueAsNumber * 100/total)}%`;
-      rangeTall.previousSibling.innerText = `${rangeTall.getAttribute('data-label')}:\u00A0${round(rangeTall.valueAsNumber * 100/total)}%`;
+    } else {
+      const total = parseInt(rangeShort.value, 10) + parseInt(rangeMid.value, 10) + parseInt(rangeTall.value, 10);
+      // this.previousSibling.innerText = `${this.getAttribute('data-label')}: ${round(this.valueAsNumber/total, 2)}`;
+      rangeShort.previousSibling.innerText = `${rangeShort.getAttribute('data-label')}:\u00A0${round(rangeShort.valueAsNumber * 100 / total)}%`;
+      rangeMid.previousSibling.innerText = `${rangeMid.getAttribute('data-label')}:\u00A0${round(rangeMid.valueAsNumber * 100 / total)}%`;
+      rangeTall.previousSibling.innerText = `${rangeTall.getAttribute('data-label')}:\u00A0${round(rangeTall.valueAsNumber * 100 / total)}%`;
     }
     config = {
       number: rangeColladas.value,
       spread: rangeSpread.value,
       offset: rangeOffset.value,
-      type: type,
+      type,
       scale: rangeScale.valueAsNumber,
       models: [{
-          url: `models/${flower}_short.dae`,
-          ratio: rangeShort.value
-        },{
-          url: `models/${flower}_mid.dae`,
-          ratio: rangeShort.value
-        },{
-          url: `models/${flower}_tall.dae`,
-          ratio: rangeTall.value
-        }
-      ]
-    }
+        url: `models/${flower}_short.dae`,
+        ratio: rangeShort.value,
+      }, {
+        url: `models/${flower}_mid.dae`,
+        ratio: rangeShort.value,
+      }, {
+        url: `models/${flower}_tall.dae`,
+        ratio: rangeTall.value,
+      },
+      ],
+    };
   };
 
-  function updateScene3d(){
-
+  function updateScene3d() {
     config.models = [{
-        url: `models/${flower}_short.dae`,
-        ratio: rangeShort.value
-      },{
-        url: `models/${flower}_mid.dae`,
-        ratio: rangeMid.value
-      },{
-        url: `models/${flower}_tall.dae`,
-        ratio: rangeTall.value
-      }
-    ]
-    //console.log(config)
+      url: `models/${flower}_short.dae`,
+      ratio: rangeShort.value,
+    }, {
+      url: `models/${flower}_mid.dae`,
+      ratio: rangeMid.value,
+    }, {
+      url: `models/${flower}_tall.dae`,
+      ratio: rangeTall.value,
+    },
+    ];
+    // console.log(config)
 
-    scene3d.createColladaSurface(config).then(function(data){
+    scene3d.createColladaSurface(config).then((data) => {
       let html = '';
       html += `number of colladas: ${data.numColladas}`;
       html += '<br>';

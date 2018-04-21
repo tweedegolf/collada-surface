@@ -1,46 +1,45 @@
-'use strict';
 
-let loadedColladas = new Map();
+import THREE from 'three';
+import '../lib/ColladaLoader';
 
-export class Collada{
+const loadedColladas = new Map();
 
-  constructor(url){
+export class Collada {
+  constructor(url) {
     this.url = url;
+    this.loader = new THREE.ColladaLoader();
   }
 
-  load(cb){
-    let loader,
-      clone,
-      data = loadedColladas.get(this.url);
+  load(cb) {
+    const data = loadedColladas.get(this.url);
+    let clone;
 
-    if(data !== undefined) {
+    if (data !== undefined) {
       clone = this.clone(data.children);
       cb(clone);
-      //setTimeout(()=>{cb(clone)}, 1000);
+      // setTimeout(()=>{cb(clone)}, 1000);
       return;
     }
 
-    loader = new THREE.ColladaLoader();
-    loader.load(this.url, (collada) => {
-      loadedColladas.set(this.url,{
-        collada: collada,
-        children: collada.scene.children
+    this.loader.load(this.url, (collada) => {
+      loadedColladas.set(this.url, {
+        collada,
+        children: collada.scene.children,
       });
       this.children = collada.scene.children;
       this.skin = collada.skins[0];
-      //setTimeout(()=>{cb(collada.scene)}, 1000);
+      // setTimeout(()=>{cb(collada.scene)}, 1000);
       cb(collada.scene);
     });
   }
 
+  static clone(children) {
+    const mesh = new THREE.Object3D();
+    // let mesh = new THREE.Group();
 
-  clone(children){
-    let mesh = new THREE.Object3D();
-    //let mesh = new THREE.Group();
-
-    children.forEach(function (child) {
-      let childMesh = new THREE.Mesh(child.geometry, child.material);
-      //let childMesh = new THREE.Object3D(child.geometry, child.material);
+    children.forEach((child) => {
+      const childMesh = new THREE.Mesh(child.geometry, child.material);
+      // let childMesh = new THREE.Object3D(child.geometry, child.material);
       childMesh.geometry.dynamic = false;
       childMesh.castShadow = false;
       childMesh.receiveShadow = false;
@@ -58,14 +57,13 @@ export class Collada{
 
     return mesh;
   }
-
 }
 
-export function createCollada(url){
-  let collada = new Collada(url);
-  return new Promise(function executor(resolve, reject){
-    collada.load(function(data){
+export function createCollada(url) {
+  const collada = new Collada(url);
+  return new Promise(((resolve) => {
+    collada.load((data) => {
       resolve(data);
     });
-  });
+  }));
 }
