@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <asset>
+    <contributor>
+      <author>Boris</author>
+      <authoring_tool>OpenCOLLADA2016;  Version: 1.6;  Revision: 61</authoring_tool>
+      <comments>
+			ColladaMaya export options:
+			bakeTransforms=0;relativePaths=0;preserveSourceTree=1;copyTextures=0;exportTriangles=0;exportCgfxFileReferences=0;
+			isSampling=1;curveConstrainSampling=0;removeStaticCurves=1;exportPhysics=0;exportConvexMeshGeometries=1;exportPolygonMeshes=1;exportLights=0;
+			exportCameras=0;exportAnimationsOnly=0;exportSeparateFile=0;modelNameDAE=;exportJoints=0;exportSkin=0;exportAnimations=0;exportOptimizedBezierAnimation=0;exportInvisibleNodes=0;exportDefaultCameras=0;
+			exportTexCoords=1;exportNormals=1;exportNormalsPerVertex=1;exportVertexColors=0;exportVertexColorsPerVertex=1;
+			exportTexTangents=0;exportTangents=0;exportReferencedMaterials=0;exportMaterialsOnly=0;
+			exportXRefs=0;dereferenceXRefs=1;exportCameraAsLookat=0;cameraXFov=1;cameraYFov=0;encodedNames=1;doublePrecision=0
+		</comments>
+      <source_data>file:///E:/Projects/External/TweedeGolf/ToevoegenIconen/Assets/Bloemen/Modeling/Work/Bloemen_Modeling_v06.mb</source_data>
+    </contributor>
+    <created>2018-04-07T19:07:44</created>
+    <modified>2018-04-07T19:07:44</modified>
+    <unit name="centimeter" meter="0.01"/>
+    <up_axis>Y_UP</up_axis>
+  </asset>
+  <library_materials>
+    <material id="Bloemen_mat" name="Bloemen_mat">
+      <instance_effect url="#Bloemen_mat-fx"/>
+    </material>
+  </library_materials>
+  <library_effects>
+    <effect id="Bloemen_mat-fx">
+      <profile_COMMON>
+        <newparam sid="pasted__Bloembak_1-surface">
+          <surface type="2D">
+            <init_from>pasted__Bloembak_1</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="pasted__Bloembak_1-sampler">
+          <sampler2D>
+            <source>pasted__Bloembak_1-surface</source>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <lambert>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color sid="ambient">0 0 0 1</color>
+            </ambient>
+            <diffuse>
+              <texture texture="pasted__Bloembak_1-sampler" texcoord="TEX0">
+                <extra>
+                  <technique profile="OpenCOLLADAMaya">
+                    <wrapU sid="wrapU" type="bool">1</wrapU>
+                    <wrapV sid="wrapV" type="bool">1</wrapV>
+                    <mirrorU sid="mirrorU" type="bool">0</mirrorU>
+                    <mirrorV sid="mirrorV" type="bool">0</mirrorV>
+                    <coverageU sid="coverageU" type="float">1</coverageU>
+                    <coverageV sid="coverageV" type="float">1</coverageV>
+                    <translateFrameU sid="translateFrameU" type="float">0</translateFrameU>
+                    <translateFrameV sid="translateFrameV" type="float">0</translateFrameV>
+                    <rotateFrame sid="rotateFrame" type="float">0</rotateFrame>
+                    <stagger sid="stagger" type="bool">0</stagger>
+                    <fast sid="fast" type="bool">0</fast>
+                    <repeatU sid="repeatU" type="float">1</repeatU>
+                    <repeatV sid="repeatV" type="float">1</repeatV>
+                    <offsetU sid="offsetU" type="float">0</offsetU>
+                    <offsetV sid="offsetV" type="float">0</offsetV>
+                    <rotateUV sid="rotateUV" type="float">0</rotateUV>
+                    <noiseU sid="noiseU" type="float">0</noiseU>
+                    <noiseV sid="noiseV" type="float">0</noiseV>
+                    <blend_mode sid="blend_mode" type="string">NONE</blend_mode>
+                  </technique>
+                </extra>
+              </texture>
+            </diffuse>
+            <transparent opaque="A_ONE">
+              <texture texture="pasted__Bloembak_1-sampler" texcoord="TEX1">
+                <extra>
+                  <technique profile="OpenCOLLADAMaya">
+                    <wrapU sid="wrapU" type="bool">1</wrapU>
+                    <wrapV sid="wrapV" type="bool">1</wrapV>
+                    <mirrorU sid="mirrorU" type="bool">0</mirrorU>
+                    <mirrorV sid="mirrorV" type="bool">0</mirrorV>
+                    <coverageU sid="coverageU" type="float">1</coverageU>
+                    <coverageV sid="coverageV" type="float">1</coverageV>
+                    <translateFrameU sid="translateFrameU" type="float">0</translateFrameU>
+                    <translateFrameV sid="translateFrameV" type="float">0</translateFrameV>
+                    <rotateFrame sid="rotateFrame" type="float">0</rotateFrame>
+                    <stagger sid="stagger" type="bool">0</stagger>
+                    <fast sid="fast" type="bool">0</fast>
+                    <repeatU sid="repeatU" type="float">1</repeatU>
+                    <repeatV sid="repeatV" type="float">1</repeatV>
+                    <offsetU sid="offsetU" type="float">0</offsetU>
+                    <offsetV sid="offsetV" type="float">0</offsetV>
+                    <rotateUV sid="rotateUV" type="float">0</rotateUV>
+                    <noiseU sid="noiseU" type="float">0</noiseU>
+                    <noiseV sid="noiseV" type="float">0</noiseV>
+                    <blend_mode sid="blend_mode" type="string">NONE</blend_mode>
+                  </technique>
+                </extra>
+              </texture>
+            </transparent>
+            <transparency>
+              <float>1</float>
+            </transparency>
+          </lambert>
+        </technique>
+      </profile_COMMON>
+      <extra>
+        <technique profile="OpenCOLLADAMaya">
+          <originalMayaNodeId sid="originalMayaNodeId" type="string">Bloemen_mat</originalMayaNodeId>
+        </technique>
+      </extra>
+    </effect>
+  </library_effects>
+  <library_images>
+    <image id="pasted__Bloembak_1" name="pasted__Bloembak_1">
+      <init_from>Bloemen-roze.png</init_from>
+      <extra>
+        <technique profile="OpenCOLLADAMaya">
+          <originalMayaNodeId sid="originalMayaNodeId" type="string">pasted__Bloembak_1</originalMayaNodeId>
+          <dgnode_type sid="dgnode_type" type="string">kFile</dgnode_type>
+          <image_sequence sid="image_sequence" type="bool">0</image_sequence>
+          <dgnode_type sid="dgnode_type" type="string">kFile</dgnode_type>
+          <image_sequence sid="image_sequence" type="bool">0</image_sequence>
+        </technique>
+      </extra>
+    </image>
+  </library_images>
+  <library_geometries>
+    <geometry id="Bloemen_Mid_Single_geoShape" name="Bloemen_Mid_Single_geoShape">
+      <mesh>
+        <source id="Bloemen_Mid_Single_geoShape-positions" name="Bloemen_Mid_Single_geoShape-positions">
+          <float_array id="Bloemen_Mid_Single_geoShape-positions-array" count="57">0.5050131 0.5045578 0.229741 -0.5045578 -0.5050131 0.229741 1.863322 1.397864 7.332553 0.1114185 -0.3540399 7.332553 1.208855 0.4060445 14.34018 -0.8025076 -2.600617 14.34018 4.000446 0.01934147 21.16163 1.654192 -3.234998 21.16163 4.266289 -2.71982 27.70837 2.71982 -4.266289 27.70837 3.612326 -0.1751328 30.33309 1.797962 -2.093866 31.97998 1.406488 -4.934576 31.23141 5.642478 -0.03339958 27.57816 3.592447 -3.393661 27.70837 2.397877 -7.034138 28.89951 6.633866 -2.132961 25.24626 6.242392 -4.973666 24.49769 4.428029 -6.892405 26.14458</float_array>
+          <technique_common>
+            <accessor source="#Bloemen_Mid_Single_geoShape-positions-array" count="19" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Bloemen_Mid_Single_geoShape-normals" name="Bloemen_Mid_Single_geoShape-normals">
+          <float_array id="Bloemen_Mid_Single_geoShape-normals-array" count="57">-0.7063503 0.7063503 0.04624297 -0.7063504 0.7063503 0.04624297 -0.7547883 0.6539041 0.05199931 -0.7563874 0.6520383 0.0521928 -0.7855828 0.5794339 0.2170622 -0.7849578 0.5761361 0.2278347 -0.7652435 0.5680158 0.30292 -0.7651021 0.5685257 0.30232 -0.7516837 0.6095009 0.2519528 -0.7516837 0.6095009 0.2519528 0.7744597 -0.4026796 0.4879152 0.8303124 -0.2885579 0.4767765 0.869201 -0.1812945 0.4600238 0.7291403 -0.3698415 0.5758227 0.7826797 -0.2561953 0.5672535 0.8302024 -0.1442646 0.5384716 0.6728136 -0.3308905 0.6616897 0.7267725 -0.2190141 0.6510257 0.7716345 -0.09670543 0.6286718</float_array>
+          <technique_common>
+            <accessor source="#Bloemen_Mid_Single_geoShape-normals-array" count="19" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Bloemen_Mid_Single_geoShape-map1" name="Bloemen_Mid_Single_geoShape-map1">
+          <float_array id="Bloemen_Mid_Single_geoShape-map1-array" count="38">0.3945968 0.08243768 0.4428072 0.0951025 0.3067939 0.2499751 0.3987603 0.2522781 0.3469486 0.4523298 0.4891979 0.4608658 0.2978767 0.6702142 0.4417961 0.6714322 0.3921099 0.8330754 0.4616271 0.8083584 0.7987809 0.4313411 0.9135122 0.43231 0.848173 0.5699749 0.7105082 0.5046358 0.9868067 0.5205829 0.9858381 0.6353142 0.7828338 0.7076399 0.7095396 0.6193668 0.8975651 0.7086084</float_array>
+          <technique_common>
+            <accessor source="#Bloemen_Mid_Single_geoShape-map1-array" count="19" stride="2">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="Bloemen_Mid_Single_geoShape-vertices" name="Bloemen_Mid_Single_geoShape-vertices">
+          <input semantic="POSITION" source="#Bloemen_Mid_Single_geoShape-positions"/>
+          <input semantic="NORMAL" source="#Bloemen_Mid_Single_geoShape-normals"/>
+        </vertices>
+        <polylist material="pasted__lambert9SG" count="8">
+          <input semantic="VERTEX" source="#Bloemen_Mid_Single_geoShape-vertices" offset="0"/>
+          <input semantic="TEXCOORD" source="#Bloemen_Mid_Single_geoShape-map1" offset="1" set="0"/>
+          <vcount>4 4 4 4 4 4 4 4</vcount>
+          <p>0 0 1 1 3 3 2 2 2 2 3 3 5 5 4 4 4 4 5 5 7 7 6 6 6 6 7 7 9 9 8 8 10 10 11 11 14 12 13 13 11 11 12 14 15 15 14 12 13 13 14 12 17 16 16 17 14 12 15 15 18 18 17 16</p>
+        </polylist>
+      </mesh>
+      <extra>
+        <technique profile="OpenCOLLADAMaya">
+          <originalMayaNodeId sid="originalMayaNodeId">Bloemen_Mid_Single_geoShape</originalMayaNodeId>
+          <double_sided sid="double_sided">1</double_sided>
+        </technique>
+      </extra>
+    </geometry>
+  </library_geometries>
+  <library_visual_scenes>
+    <visual_scene id="VisualSceneNode" name="Bloemen_Modeling_v06">
+      <node id="_Bloemen_Mid_Single_geo" name="Bloemen_Mid_Single_geo" type="NODE">
+        <translate sid="translate">0 0 0</translate>
+        <rotate sid="rotateZ">0 0 1 0</rotate>
+        <rotate sid="rotateY">0 1 0 0</rotate>
+        <rotate sid="rotateX">1 0 0 0</rotate>
+        <scale sid="scale">1 1 1</scale>
+        <instance_geometry url="#Bloemen_Mid_Single_geoShape">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="pasted__lambert9SG" target="#Bloemen_mat">
+                <bind_vertex_input semantic="TEX0" input_semantic="TEXCOORD" input_set="0"/>
+                <bind_vertex_input semantic="TEX1" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+        <extra>
+          <technique profile="OpenCOLLADAMaya">
+            <originalMayaNodeId sid="originalMayaNodeId" type="string">Bloemen_Mid_Single_geo</originalMayaNodeId>
+          </technique>
+        </extra>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#VisualSceneNode"/>
+  </scene>
+  <extra>
+    <technique profile="COLLADA">
+      <source_data_base_uri>file:///C:/Users/Boris/Documents/maya/projects/default/</source_data_base_uri>
+    </technique>
+  </extra>
+</COLLADA>

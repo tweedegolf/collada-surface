@@ -2,11 +2,18 @@
   "name": "collada-surface",
   "private": true,
   "devDependencies": {
-    "babelify": ">=4.0.0",
-    "browserify": ">=8.1.1",
-    "exorcist": "^0.1.6",
-    "local-web-server": "^0.5.16",
-    "watchify": ">=1.0.1"
+    "babel-core": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babelify": "^8.0.0",
+    "browserify": "^16.1.1",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.9.0",
+    "exorcist": "^1.0.1",
+    "local-web-server": "^2.5.1",
+    "watchify": "^3.11.0"
   },
   "engines": {
     "node": "0.10.x"
@@ -15,5 +22,8 @@
     "start": "ws",
     "build": "browserify js/main.js -t [ babelify --sourceMapRelative ./js ] --debug | exorcist build/build.js.map > build/build.js",
     "watch": "watchify js/* -t babelify -o build/build.js --debug --verbose & ws"
+  },
+  "dependencies": {
+    "babel-core": "^6.26.0"
   }
 }

@@ -18,7 +18,8 @@ let divRandom = document.getElementById('controls-random');
 let divLoading = document.getElementById('loading');
 let updateSliderValue;
 let type = 'grid';
-let flower = 'Anemoon';
+// let flower = 'Anemoon';
+let flower = 'Bloemen-los';
 let config = {
   number: rangeColladas.value,
   spread: rangeSpread.value,
@@ -26,16 +27,27 @@ let config = {
   type: type,
   scale: 100,
   models: [{
-      url: `models/${flower}_short.dae`,
+      url: `models/${flower}-groot-roze.dae`,
       ratio: rangeShort.value
     },{
-      url: `models/${flower}_mid.dae`,
+      url: `models/${flower}-middel-roze.dae`,
       ratio: rangeMid.value
     },{
-      url: `models/${flower}_tall.dae`,
+      url: `models/${flower}-klein-roze.dae`,
       ratio: rangeTall.value
     }
   ]
+  // models: [{
+  //     url: `models/${flower}_short.dae`,
+  //     ratio: rangeShort.value
+  //   },{
+  //     url: `models/${flower}_mid.dae`,
+  //     ratio: rangeMid.value
+  //   },{
+  //     url: `models/${flower}_tall.dae`,
+  //     ratio: rangeTall.value
+  //   }
+  // ]
 };
 
 
@@ -97,33 +109,55 @@ export default function createControls(scene3d){
       offset: rangeOffset.value,
       type: type,
       scale: rangeScale.valueAsNumber,
+      // models: [{
+      //     url: `models/${flower}_short.dae`,
+      //     ratio: rangeShort.value
+      //   },{
+      //     url: `models/${flower}_mid.dae`,
+      //     ratio: rangeShort.value
+      //   },{
+      //     url: `models/${flower}_tall.dae`,
+      //     ratio: rangeTall.value
+      //   }
+      // ]
       models: [{
-          url: `models/${flower}_short.dae`,
-          ratio: rangeShort.value
-        },{
-          url: `models/${flower}_mid.dae`,
-          ratio: rangeShort.value
-        },{
-          url: `models/${flower}_tall.dae`,
-          ratio: rangeTall.value
-        }
-      ]
+        url: `models/${flower}-groot-roze.dae`,
+        ratio: rangeShort.value
+      },{
+        url: `models/${flower}-middel-roze.dae`,
+        ratio: rangeMid.value
+      },{
+        url: `models/${flower}-klein-roze.dae`,
+        ratio: rangeTall.value
+      }]
     }
   };
 
   function updateScene3d(){
 
+    // config.models = [{
+    //     url: `models/${flower}_short.dae`,
+    //     ratio: rangeShort.value
+    //   },{
+    //     url: `models/${flower}_mid.dae`,
+    //     ratio: rangeMid.value
+    //   },{
+    //     url: `models/${flower}_tall.dae`,
+    //     ratio: rangeTall.value
+    //   }
+    // ]
+
     config.models = [{
-        url: `models/${flower}_short.dae`,
-        ratio: rangeShort.value
-      },{
-        url: `models/${flower}_mid.dae`,
-        ratio: rangeMid.value
-      },{
-        url: `models/${flower}_tall.dae`,
-        ratio: rangeTall.value
-      }
-    ]
+      url: `models/${flower}-groot-roze.dae`,
+      ratio: rangeShort.value
+    },{
+      url: `models/${flower}-middel-roze.dae`,
+      ratio: rangeMid.value
+    },{
+      url: `models/${flower}-klein-roze.dae`,
+      ratio: rangeTall.value
+    }]
+
     //console.log(config)
 
     scene3d.createColladaSurface(config).then(function(data){
