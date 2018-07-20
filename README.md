@@ -6,7 +6,7 @@ Tool that lets you configure mixes of 3 different types of 3D models. In this ca
  - the way the flowers are placed on the surface
  - each flower type comes in 3 flavors: short, mid and tall, and you can configure the percentage of each flavor in the mix
 
-See the [live example](http://data.tweedegolf.nl/colladasurface/)
+See the [live example](https://tweedegolf.github.io/colladasurface/)
 
 
 ### Installation
