@@ -2,6 +2,8 @@
   "name": "collada-surface",
   "private": true,
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
     "babelify": ">=4.0.0",
     "browserify": ">=8.1.1",
     "exorcist": "^0.1.6",
@@ -15,5 +17,6 @@
     "start": "ws",
     "build": "browserify js/main.js -t [ babelify --sourceMapRelative ./js ] --debug | exorcist build/build.js.map > build/build.js",
     "watch": "watchify js/* -t babelify -o build/build.js --debug --verbose & ws"
-  }
+  },
+  "dependencies": {}
 }

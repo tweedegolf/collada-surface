@@ -1,6 +1,6 @@
 'use strict';
 
-require('babelify/polyfill');
+// require('babelify/polyfill');
 
 import scene3d from './scene3d';
 import createControls from './controls';
